@@ -4,17 +4,17 @@
 var products = [{
     name: "Zarter Ton",
     image: "Images/1.jpg",
-    price: 10, //34.90,
+    price: 34.90,
     qtty: 1
 }, {
     name: "Großes Herz",
     image: "Images/2.jpg",
-    price: 10,//34.90,
+    price: 34.90,
     qtty: 1
 }, {
     name: "Zarte Blümchen",
     image: "Images/3.jpg",
-    price: 10,//35.90,
+    price: 35.90,
     qtty: 1
 }];
 
@@ -110,8 +110,8 @@ function Total() {
     }
     if (total >= 100) {
         discount = (10 / 100) * total;
-        console.log(discount);
-        totalElement.innerHTML = `Your Price is over 100€ so you get ${discount.toFixed(2)}€ discount, your new Price is ${total.toFixed(2) - discount.toFixed(2)}€ `; 
+        let newPrice = total - discount;
+        totalElement.innerHTML = `Your Price is over 100€ so you get ${discount.toFixed(2)}€ discount (10%), your new Price is ${newPrice.toFixed(2)}€ `; 
     } else {
         totalElement.innerHTML = total.toFixed(2) + " €";
     }
