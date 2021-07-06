@@ -4,17 +4,17 @@
 var products = [{
     name: "Zarter Ton",
     image: "Images/1.jpg",
-    price: 34.90,
+    price: 10, //34.90,
     qtty: 1
 }, {
     name: "Großes Herz",
     image: "Images/2.jpg",
-    price: 34.90,
+    price: 10,//34.90,
     qtty: 1
 }, {
     name: "Zarte Blümchen",
     image: "Images/3.jpg",
-    price: 35.90,
+    price: 10,//35.90,
     qtty: 1
 }];
 
@@ -41,6 +41,7 @@ function addToCart(product, index) {
     console.table(cart);
     createRows();
     Total();
+    amountOfItems();
 }
 
 
@@ -84,24 +85,37 @@ function createRows() {
         plus[i].addEventListener("click", function() {
             plusQtty(i);
             Total();
+            amountOfItems();
         });
         minus[i].addEventListener("click", function() {
             minusQtty(i);
             Total();
+            amountOfItems();
         });
         del[i].addEventListener("click", function() {
             deleteItem(i);
             Total();
+            amountOfItems();
         });
     }
 }
 
+let totalElement = document.getElementById("price");
+
 function Total() {
+    let discount;
     let total = 0;
     for (let val of cart) {
         total = total + (val.price * val.qtty);
     }
-    document.getElementById("price").innerHTML = total.toFixed(2) + " €";
+    if (total >= 100) {
+        discount = (10 / 100) * total;
+        console.log(discount);
+        totalElement.innerHTML = `Your Price is over 100€ so you get ${discount.toFixed(2)}€ discount, your new Price is ${total.toFixed(2) - discount.toFixed(2)}€ `; 
+    } else {
+        totalElement.innerHTML = total.toFixed(2) + " €";
+    }
+    
 }
 
 function plusQtty(i) {
@@ -123,4 +137,12 @@ function deleteItem(i) {
     cart[i].qtty = 1;
     cart.splice(i, 1);
     createRows();
+}
+
+function amountOfItems() {
+    let amount = 0;
+    for (let val of cart) {
+        amount = amount + val.qtty;
+    }
+    document.getElementById("amount").innerHTML = amount;
 }
